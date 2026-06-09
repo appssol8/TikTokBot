@@ -1,5 +1,6 @@
 name: TikTok Monitor Schedule
-
+permissions:
+  contents: write
 on:
   schedule:
     # يشتغل كل 12 ساعة
