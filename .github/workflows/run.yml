@@ -1,0 +1,40 @@
+name: TikTok Monitor Schedule
+
+on:
+  schedule:
+    # يشتغل كل 12 ساعة
+    - cron: '0 */12 * * *'
+  workflow_dispatch:
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Install FFmpeg
+      run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+    - name: Install Python Libraries
+      run: pip install -r requirements.txt
+
+    - name: Run Bot
+      env:
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        CHAT_ID: ${{ secrets.CHAT_ID }}
+      run: python bot.py
+
+    - name: Save State
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add state.json || echo "No state file yet"
+        git commit -m "Update state" || echo "No changes to commit"
+        git push
