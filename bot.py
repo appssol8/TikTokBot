@@ -13,9 +13,7 @@ CHAT_ID = os.environ.get("CHAT_ID")
 # --- قائمة حسابات تيك توك (عدلها كما تريد لاحقاً) ---
 TARGET_ACCOUNTS = [
     "appssol"
-# ---   , "username2",--- # استبدل هذا بحساب آخر
-# ---    "username3" --- # استبدل هذا بحساب آخر
-]
+ ]
 
 # تحميل نموذج الذكاء الاصطناعي
 print("Loading Whisper model...")
